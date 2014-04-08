@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TddKata
 {
-    class StringCalculator
+    public class StringCalculator
     {
         List<int> _invalidNumbers;
         List<ProcessValueAction> _numberStrageies;
