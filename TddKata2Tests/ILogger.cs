@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TddKata2Tests
+namespace TddKata
 {
     public interface ILogger
     {

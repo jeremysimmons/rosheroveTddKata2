@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TddKata1
+namespace TddKata
 {
     [TestClass]
     public class CalculationExpressionParserTest

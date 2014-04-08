@@ -1,10 +1,9 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.JustMock;
-using TddKata2Tests;
 using Telerik.JustMock.Helpers;
 
-namespace TddKata1
+namespace TddKata
 {
     [TestClass]
     public class StringCalculatorTest

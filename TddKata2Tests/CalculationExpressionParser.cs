@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace TddKata1
+namespace TddKata
 {
     public class CalculationExpressionParser
     {

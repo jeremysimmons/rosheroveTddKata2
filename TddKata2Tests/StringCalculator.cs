@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TddKata2Tests;
 
-namespace TddKata1
+namespace TddKata
 {
     class StringCalculator
     {
