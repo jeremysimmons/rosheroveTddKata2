@@ -10,7 +10,8 @@ namespace TddKata1
     {
         List<int> _invalidNumbers;
         List<ProcessValueAction> _numberStrageies;
-        private TddKata2Tests.ILogger logger;
+        private ILogger _logger;
+        private IWebService _service;
         delegate void ProcessValueAction(int newNumber, ref int aggregate, ref bool stopProcessing);
 
         public StringCalculator()
@@ -19,13 +20,20 @@ namespace TddKata1
         }
 
         public StringCalculator(ILogger logger)
+            : this(logger, NullWebService.Default)
         {
-            this.logger = logger;
+        }
+
+        public StringCalculator(ILogger logger, IWebService service)
+        {
+            _logger = logger;
+            _service = service;
             _invalidNumbers = new List<int>();
             _numberStrageies = new List<ProcessValueAction>();
             _numberStrageies.Add(ThrowOnNegativeValues);
             _numberStrageies.Add(SkipNumbersLargerThan1000);
             _numberStrageies.Add(AggregateNewNumber);
+
         }
 
         private static void AggregateNewNumber(int newNumber, ref int aggregate, ref bool stopProcessing)
@@ -73,7 +81,14 @@ namespace TddKata1
             if (_invalidNumbers.Count > 0)
                 throw new ArgumentException("Invalid Numbers: " + String.Join(", ", _invalidNumbers.Select(x => x.ToString())));
 
-            logger.Write("Sum Result: " + result);
+            try
+            {
+                _logger.Write("Sum Result: " + result);
+            }
+            catch (Exception ex)
+            {
+                _service.Notify(ex.Message);
+            }
             return result;
         }
     }

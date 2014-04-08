@@ -150,12 +150,14 @@ namespace TddKata1
         {
             // Arrange
             ILogger logger = Mock.Create<ILogger>();
-            
+            string exceptionMessage = "Logging hath failed verily.";
+            logger.Arrange(x => x.Write(Arg.AnyString)).Throws(new Exception(exceptionMessage));
+
             // The web service must be called once
             IWebService service = Mock.Create<IWebService>();
-            service.Arrange(x => x.Notify(Arg.AnyString)).OccursOnce();
+            service.Arrange(x => x.Notify(exceptionMessage)).OccursOnce();
             
-            StringCalculator calculator = new StringCalculator(logger);
+            StringCalculator calculator = new StringCalculator(logger, service);
 
             // Act
             calculator.Add("1,2,3");
