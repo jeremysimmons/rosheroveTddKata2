@@ -2,6 +2,7 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.JustMock;
 using TddKata2Tests;
+using Telerik.JustMock.Helpers;
 
 namespace TddKata1
 {
@@ -143,5 +144,25 @@ namespace TddKata1
             // Assert
             Mock.Assert(logger);
         }
+
+        [TestMethod]
+        public void Add_When_Logger_Throws_Exception_IWebService_Notified()
+        {
+            // Arrange
+            ILogger logger = Mock.Create<ILogger>();
+            
+            // The web service must be called once
+            IWebService service = Mock.Create<IWebService>();
+            service.Arrange(x => x.Notify(Arg.AnyString)).OccursOnce();
+            
+            StringCalculator calculator = new StringCalculator(logger);
+
+            // Act
+            calculator.Add("1,2,3");
+
+            // Assert
+            service.AssertAll();
+        }
+
     }
 }
