@@ -16,9 +16,17 @@ namespace StringCalcProgram
 
             StringCalculator calculator = new StringCalculator();
             int result = calculator.Add(args[0]);
-
             Console.WriteLine("The result is " + result);
+            Console.WriteLine("another input please");
+            string input = Console.ReadLine();
 
+            while(input != null)
+            {
+                result = calculator.Add(input);
+                Console.WriteLine("The result is " + result);
+                Console.WriteLine("another input please");
+                input = Console.ReadLine();
+            } 
             return 0;
         }
     }
