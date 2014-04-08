@@ -132,10 +132,16 @@ namespace TddKata1
         [TestMethod]
         public void Add_Calls_Logger()
         {
+            // Arrange
             ILogger logger = Mock.Create<ILogger>();
-            StringCalculator calculator = new StringCalculator(logger);
-            calculator.Add("1,2,3");
             Mock.Arrange(() => logger.Write(Arg.AnyString)).MustBeCalled();
+            StringCalculator calculator = new StringCalculator(logger);
+            
+            // Act
+            calculator.Add("1,2,3");
+            
+            // Assert
+            Mock.Assert(logger);
         }
     }
 }

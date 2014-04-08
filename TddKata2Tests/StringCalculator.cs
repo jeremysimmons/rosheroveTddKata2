@@ -13,19 +13,19 @@ namespace TddKata1
         private TddKata2Tests.ILogger logger;
         delegate void ProcessValueAction(int newNumber, ref int aggregate, ref bool stopProcessing);
 
-        public StringCalculator() : this(NullLogger.Default)
+        public StringCalculator()
+            : this(NullLogger.Default)
         {
+        }
+
+        public StringCalculator(ILogger logger)
+        {
+            this.logger = logger;
             _invalidNumbers = new List<int>();
             _numberStrageies = new List<ProcessValueAction>();
             _numberStrageies.Add(ThrowOnNegativeValues);
             _numberStrageies.Add(SkipNumbersLargerThan1000);
             _numberStrageies.Add(AggregateNewNumber);
-        }
-
-        public StringCalculator(ILogger logger)
-        {
-            // TODO: Complete member initialization
-            this.logger = logger;
         }
 
         private static void AggregateNewNumber(int newNumber, ref int aggregate, ref bool stopProcessing)
