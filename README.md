@@ -21,16 +21,16 @@ Add the following features to String Calculator (either in the same class, or us
 
 ## The Kata
 
-* Add Logging Abilities to your new String Calculator (to an ILogger.Write()) interface (you will need a mock). 
-* Every time you call Add(), the sum result will be logged to the logger.
-* When calling Add() and the logger throws an exception, the String Calculator should notify an IWebService of some kind that logging has failed with the message from the logger's exception (you will need a mock and a stub).
+1. Add Logging Abilities to your new String Calculator (to an ILogger.Write()) interface (you will need a mock). 
+1. Every time you call Add(), the sum result will be logged to the logger.
+1. When calling Add() and the logger throws an exception, the String Calculator should notify an IWebService of some kind that logging has failed with the message from the logger's exception (you will need a mock and a stub).
 
 **A More Difficult Variation of the Kata:**
 
-* Everytime you call Add(string) it also outputs the number result of the calculation in a new line to the terminal or console.
+1. Every time you call Add(string) it also outputs the number result of the calculation in a new line to the terminal or console.
  
-* Create a program (test first) that uses string calculator, which the user can invoke through the terminal/console by calling `"scalc '1,2,3'"` and will output the following line before exiting: `"The result is 6"`
-* Instead of exiting after the first result, the program will ask the user for `"another input please"` and print the result of the new user input out as well, until the user gives no input and just press enter. In that case it will exit.
+1. Create a program (test first) that uses string calculator, which the user can invoke through the terminal/console by calling `"scalc '1,2,3'"` and will output the following line before exiting: `"The result is 6"`
+1. Instead of exiting after the first result, the program will ask the user for `"another input please"` and print the result of the new user input out as well, until the user gives no input and just press enter. In that case it will exit.
  
 #### Hints:
 How can you check if something was output to the console? In ruby you can just override the 'puts' method or use one of the isolation frameworks to fake it and check that it was called. In .NET, the Console class has a static method called `"SetOut"` that takes a text writer. Combine that with a StringBuilder, and you have a built in way to create a mock that can check what was sent to the console. Another option is to abstract the output medium completely into its own class or interface such as IOutput, that can be used to 'mediate' between the real console and the inputs and outputs. 

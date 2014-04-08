@@ -1,5 +1,7 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Telerik.JustMock;
+using TddKata2Tests;
 
 namespace TddKata1
 {
@@ -125,6 +127,15 @@ namespace TddKata1
             StringCalculator calc = new StringCalculator();
             int result = calc.Add(calcProgram);
             Assert.AreEqual(6, result);
+        }
+
+        [TestMethod]
+        public void Add_Calls_Logger()
+        {
+            ILogger logger = Mock.Create<ILogger>();
+            StringCalculator calculator = new StringCalculator(logger);
+            calculator.Add("1,2,3");
+            Mock.Arrange(() => logger.Write(Arg.AnyString)).MustBeCalled();
         }
     }
 }

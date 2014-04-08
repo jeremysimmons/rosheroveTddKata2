@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TddKata2Tests;
 
 namespace TddKata1
 {
@@ -9,15 +10,22 @@ namespace TddKata1
     {
         List<int> _invalidNumbers;
         List<ProcessValueAction> _numberStrageies;
+        private TddKata2Tests.ILogger logger;
         delegate void ProcessValueAction(int newNumber, ref int aggregate, ref bool stopProcessing);
-        
-        public StringCalculator()
+
+        public StringCalculator() : this(NullLogger.Default)
         {
-            _invalidNumbers = new List<int>(); 
+            _invalidNumbers = new List<int>();
             _numberStrageies = new List<ProcessValueAction>();
             _numberStrageies.Add(ThrowOnNegativeValues);
             _numberStrageies.Add(SkipNumbersLargerThan1000);
             _numberStrageies.Add(AggregateNewNumber);
+        }
+
+        public StringCalculator(ILogger logger)
+        {
+            // TODO: Complete member initialization
+            this.logger = logger;
         }
 
         private static void AggregateNewNumber(int newNumber, ref int aggregate, ref bool stopProcessing)
@@ -43,14 +51,14 @@ namespace TddKata1
         {
             CalculationExpressionParser parser = new CalculationExpressionParser();
             string[] delimiter = parser.Delimiters(inputs);
-            string[] allSeparators = delimiter.Concat(new[]{"\n"}).ToArray();
+            string[] allSeparators = delimiter.Concat(new[] { "\n" }).ToArray();
             string[] strings = inputs.Split(allSeparators, StringSplitOptions.RemoveEmptyEntries);
 
             int temp = 0;
             int result = 0;
             foreach (string number in strings)
             {
-                if(Int32.TryParse(number, out temp))
+                if (Int32.TryParse(number, out temp))
                 {
                     bool stopProcessing = false;
                     foreach (ProcessValueAction numberStragey in _numberStrageies)
@@ -58,11 +66,11 @@ namespace TddKata1
                         numberStragey(temp, ref result, ref stopProcessing);
                         if (stopProcessing)
                             break;
-                    }    
+                    }
                 }
             }
-            
-            if(_invalidNumbers.Count > 0)
+
+            if (_invalidNumbers.Count > 0)
                 throw new ArgumentException("Invalid Numbers: " + String.Join(", ", _invalidNumbers.Select(x => x.ToString())));
 
             return result;
