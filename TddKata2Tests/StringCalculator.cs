@@ -73,6 +73,7 @@ namespace TddKata1
             if (_invalidNumbers.Count > 0)
                 throw new ArgumentException("Invalid Numbers: " + String.Join(", ", _invalidNumbers.Select(x => x.ToString())));
 
+            logger.Write("Sum Result: " + result);
             return result;
         }
     }
