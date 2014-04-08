@@ -145,7 +145,7 @@ namespace TddKata
         }
 
         [TestMethod]
-        public void Add_When_Logger_Throws_Exception_IWebService_Notified()
+        public void Add_IWebService_Calls_Notify_With_Exception_Message_When_Logger_Throws_Exception()
         {
             // Arrange
             ILogger logger = Mock.Create<ILogger>();
@@ -164,6 +164,5 @@ namespace TddKata
             // Assert
             service.AssertAll();
         }
-
     }
 }
