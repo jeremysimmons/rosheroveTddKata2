@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="CalculationExpressionParser.cs" />
     <Compile Include="CalculationExpressionParserTest.cs" />
+    <Compile Include="ConsoleLogger.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="IWebService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

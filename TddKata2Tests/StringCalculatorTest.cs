@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.JustMock;
 using Telerik.JustMock.Helpers;
@@ -133,14 +135,17 @@ namespace TddKata
         public void Add_Calls_Logger()
         {
             // Arrange
+            // ==========================
             ILogger logger = Mock.Create<ILogger>();
             Mock.Arrange(() => logger.Write(Arg.AnyString)).MustBeCalled();
             StringCalculator calculator = new StringCalculator(logger);
             
             // Act
+            // ==========================
             calculator.Add("1,2,3");
             
             // Assert
+            // ==========================
             Mock.Assert(logger);
         }
 
@@ -163,6 +168,30 @@ namespace TddKata
 
             // Assert
             service.AssertAll();
+        }
+
+        [TestMethod]
+        public void Add_Logs_To_Console()
+        {
+            // Arrange
+            // ==========================
+            // Create an ILogger that writes to System.Console
+            ConsoleLogger logger = new ConsoleLogger();
+            // Override the standard output stream of the Console class
+            StringBuilder builder = new StringBuilder();
+            TextWriter writer = new StringWriter(builder);
+            logger.SetOut(writer);
+
+            // Create the calculator instance with the logger
+            StringCalculator calculator = new StringCalculator(logger);
+
+            // Act
+            // ==========================
+            calculator.Add("1,2,3");
+
+            // Assert
+            // ==========================
+            Assert.AreEqual(builder.ToString(), "Sum Result: 6" + Environment.NewLine);
         }
     }
 }
